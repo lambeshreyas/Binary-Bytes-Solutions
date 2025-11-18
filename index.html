@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Bytes Solution - Empowering Digital Growth</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- No tailwind.config script block is present, relying on CSS and bracket notation -->
+
+    <style>
+        /* Define custom colors using CSS variables for central control in the style block */
+        :root {
+            --color-primary: #0A335E; /* Dark Blue/Navy */
+            --color-accent: #00BCD4;  /* Cyan/Teal */
+            --color-light: #F5F9FD;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8;
+            color: #1f2937;
+        }
+        
+        /* Style for the active navigation link */
+        .nav-active {
+            color: var(--color-accent) !important;
+            border-bottom: 2px solid var(--color-accent);
+        }
+        
+        /* Custom scrollbar for better aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
+        
+        /* Gradient for Hero background (subtle texture) */
+        .hero-bg {
+            background-image: linear-gradient(to right, var(--color-light), #ffffff);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="bg-white shadow-lg fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo: Used bracket notation for primary and accent color -->
+                <a href="#home" class="flex items-center space-x-2 text-2xl font-bold text-[#0A335E] hover:text-[#00BCD4] transition duration-300" onclick="navigate('home')">
+                    <span data-lucide="cpu" class="w-7 h-7"></span>
+                    <span>Binary Bytes Solution</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-[#00BCD4] transition duration-300 py-5" data-page="home" onclick="navigate('home')">Home</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-[#00BCD4] transition duration-300 py-5" data-page="about" onclick="navigate('about')">About Us</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-[#00BCD4] transition duration-300 py-5" data-page="services" onclick="navigate('services')">Services</a>
+                    <a href="#careers" class="nav-link text-gray-700 hover:text-[#00BCD4] transition duration-300 py-5" data-page="careers" onclick="navigate('careers')">Recruitment</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-[#00BCD4] transition duration-300 py-5" data-page="contact" onclick="navigate('contact')">Contact Us</a>
+                </div>
+
+                <!-- CTA Button: Used bracket notation for accent color -->
+                <div class="hidden md:block">
+                    <a href="#contact" class="bg-[#00BCD4] text-white py-2 px-4 rounded-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-md" onclick="navigate('contact')">
+                        Get a Quote
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 text-gray-700 hover:text-[#00BCD4] transition duration-300" aria-label="Toggle Menu">
+                    <span data-lucide="menu" class="w-6 h-6"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-[#F5F9FD] hover:text-[#00BCD4]" data-page="home" onclick="navigate('home'); closeMobileMenu();">Home</a>
+                <a href="#about" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-[#F5F9FD] hover:text-[#00BCD4]" data-page="about" onclick="navigate('about'); closeMobileMenu();">About Us</a>
+                <a href="#services" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-[#F5F9FD] hover:text-[#00BCD4]" data-page="services" onclick="navigate('services'); closeMobileMenu();">Services</a>
+                <a href="#careers" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-[#F5F9FD] hover:text-[#00BCD4]" data-page="careers" onclick="navigate('careers'); closeMobileMenu();">Recruitment</a>
+                <a href="#contact" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-[#F5F9FD] hover:text-[#00BCD4]" data-page="contact" onclick="navigate('contact'); closeMobileMenu();">Contact Us</a>
+                <a href="#contact" class="block w-full text-center bg-[#00BCD4] text-white mt-2 py-2 px-4 rounded-lg font-semibold hover:bg-opacity-90 transition duration-300" onclick="navigate('contact'); closeMobileMenu();">Get a Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content Container -->
+    <main class="pt-16">
+        <!-- Home Page Section -->
+        <section id="home" class="page-section hero-bg pt-16">
+            <!-- Hero Section -->
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <!-- Accent color via bracket notation -->
+                    <span class="text-[#00BCD4] uppercase tracking-wider font-semibold">Binary Bytes Solution</span>
+                    <!-- Primary color via bracket notation -->
+                    <h1 class="text-5xl lg:text-6xl font-extrabold text-[#0A335E] mt-3 leading-tight">
+                        Empowering Digital Growth with Technology & Talent
+                    </h1>
+                    <p class="mt-6 text-lg text-gray-600 max-w-lg">
+                        We deliver custom, end-to-end digital solutions and strategic talent acquisition to build the future of your business.
+                    </p>
+                    <div class="mt-8 flex space-x-4">
+                        <!-- Primary color via bracket notation -->
+                        <a href="#services" class="bg-[#0A335E] text-white py-3 px-6 rounded-lg font-bold hover:bg-[#00BCD4] transition duration-300 shadow-xl shadow-[#0A335E]/20" onclick="navigate('services')">
+                            Get a Quote
+                        </a>
+                        <a href="#careers" class="bg-white text-[#0A335E] border-2 border-[#0A335E] py-3 px-6 rounded-lg font-bold hover:bg-[#0A335E] hover:text-white transition duration-300" onclick="navigate('careers')">
+                            Hire Talent
+                        </a>
+                    </div>
+                </div>
+                <!-- Graphics/Image Section -->
+                <div class="md:w-1/2 flex justify-center p-8">
+                    <!-- Inline SVG Graphic: Primary/Accent colors used with bracket notation/CSS variables via style block -->
+                    <div class="w-full max-w-md h-auto bg-[#0A335E] p-6 rounded-3xl shadow-2xl relative">
+                        <div class="absolute inset-0 bg-[#00BCD4] opacity-10 rounded-3xl"></div>
+                        <svg class="w-full h-full text-[#00BCD4]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="10" width="80" height="80" rx="10" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+                            <path d="M50 54V60M60 50H54M50 46V40M40 50H46" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M30 70 L70 30" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <path d="M70 70 L30 30" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <g class="animate-pulse">
+                                <rect x="15" y="15" width="10" height="10" rx="2" fill="currentColor" opacity="0.8"/>
+                                <rect x="75" y="75" width="10" height="10" rx="2" fill="currentColor" opacity="0.8"/>
+                            </g>
+                            <text x="50" y="45" font-size="6" text-anchor="middle" fill="#ffffff" font-weight="bold">CODE & TALENT</text>
+                            <text x="50" y="75" font-size="4" text-anchor="middle" fill="currentColor" opacity="0.7">BBS 2024</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="bg-white py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl font-bold text-center text-[#0A335E] mb-12">Why Choose Binary Bytes Solution?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Light background color via bracket notation -->
+                        <div class="text-center p-6 bg-[#F5F9FD] rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                            <span data-lucide="check-circle" class="w-10 h-10 text-[#00BCD4] mx-auto mb-4"></span>
+                            <h3 class="text-xl font-semibold text-[#0A335E] mb-2">End-to-End Delivery</h3>
+                            <p class="text-gray-600">From concept and strategy to deployment and support, we cover the entire development lifecycle.</p>
+                        </div>
+                        <div class="text-center p-6 bg-[#F5F9FD] rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                            <span data-lucide="users" class="w-10 h-10 text-[#00BCD4] mx-auto mb-4"></span>
+                            <h3 class="text-xl font-semibold text-[#0A335E] mb-2">Talent Focus</h3>
+                            <p class="text-gray-600">Specialized in IT resourcing and staffing, providing you with top-tier, skilled candidates quickly.</p>
+                        </div>
+                        <div class="text-center p-6 bg-[#F5F9FD] rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
+                            <span data-lucide="lightbulb" class="w-10 h-10 text-[#00BCD4] mx-auto mb-4"></span>
+                            <h3 class="text-xl font-semibold text-[#0A335E] mb-2">Custom Solutions</h3>
+                            <p class="text-gray-600">Digital products are custom-built to perfectly align with your unique business processes and goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client-Focused Highlights -->
+            <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold text-[#0A335E] mb-4">A Client-First Approach</h2>
+                <p class="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+                    Our success is measured by the success of our partners. We focus on transparency, timely delivery, and measurable ROI.
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-4 border-l-4 border-[#00BCD4] rounded-r-lg bg-white shadow-md">
+                        <p class="text-4xl font-bold text-[#0A335E]">5+</p>
+                        <p class="text-sm text-gray-500">Years of Experience</p>
+                    </div>
+                    <div class="p-4 border-l-4 border-[#00BCD4] rounded-r-lg bg-white shadow-md">
+                        <p class="text-4xl font-bold text-[#0A335E]">150+</p>
+                        <p class="text-sm text-gray-500">Successful Projects</p>
+                    </div>
+                    <div class="p-4 border-l-4 border-[#00BCD4] rounded-r-lg bg-white shadow-md">
+                        <p class="text-4xl font-bold text-[#0A335E]">98%</p>
+                        <p class="text-sm text-gray-500">Client Satisfaction</p>
+                    </div>
+                    <div class="p-4 border-l-4 border-[#00BCD4] rounded-r-lg bg-white shadow-md">
+                        <p class="text-4xl font-bold text-[#0A335E]">400+</p>
+                        <p class="text-sm text-gray-500">Talent Placements</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="page-section hidden py-24 bg-[#F5F9FD]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center text-[#0A335E] mb-16">The Binary Bytes Story</h2>
+
+                <!-- History and Mission -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-[#00BCD4] uppercase tracking-wider font-semibold text-sm">Our Roots</span>
+                        <h3 class="text-3xl font-bold text-[#0A335E] mt-2 mb-4">Founded on Innovation in 2019</h3>
+                        <p class="text-gray-600 mb-6">
+                            Binary Bytes Solution began as a pure-play software services company in 2019, driven by the belief that technology should solve real-world business challenges. Our initial focus was on delivering complex, custom-built solutions for mid-market clients.
+                        </p>
+                        <p class="text-gray-600">
+                            Since then, we've expanded our capabilities into product engineering, IT consulting, and, most importantly, **strategic talent acquisition**. We understand that great technology is built by great people, and we are dedicated to connecting skilled candidates with the right opportunities globally.
+                        </p>
+                        <p class="mt-6 text-sm italic text-gray-500">
+                            Over five years of experience, constantly adapting to the pace of digital transformation.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-white rounded-xl shadow-2xl border-t-4 border-[#00BCD4]">
+                        <h4 class="text-2xl font-bold text-[#0A335E] mb-4 flex items-center"><span data-lucide="target" class="w-6 h-6 mr-3 text-[#00BCD4]"></span> Mission & Vision</h4>
+                        <ul class="space-y-4 text-gray-700">
+                            <li><strong class="text-[#0A335E]">Mission:</strong> To accelerate our clients' digital roadmaps through best-in-class software solutions and unparalleled IT talent placement.</li>
+                            <li><strong class="text-[#0A335E]">Vision:</strong> To be the global partner of choice for technology and talent, making a measurable impact on business growth worldwide.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Values -->
+                <div class="mt-20">
+                    <h3 class="text-3xl font-bold text-center text-[#0A335E] mb-10">Our Core Values</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center p-6 border-2 border-[#00BCD4]/30 rounded-lg bg-white transition duration-300 hover:scale-[1.05] hover:shadow-xl">
+                            <span data-lucide="layers-3" class="w-8 h-8 text-[#00BCD4] mx-auto mb-3"></span>
+                            <p class="font-bold text-[#0A335E]">Integrity</p>
+                            <p class="text-sm text-gray-600 mt-1">Honesty and transparency in every partnership.</p>
+                        </div>
+                        <div class="text-center p-6 border-2 border-[#00BCD4]/30 rounded-lg bg-white transition duration-300 hover:scale-[1.05] hover:shadow-xl">
+                            <span data-lucide="zap" class="w-8 h-8 text-[#00BCD4] mx-auto mb-3"></span>
+                            <p class="font-bold text-[#0A335E]">Innovation</p>
+                            <p class="text-sm text-gray-600 mt-1">Continuously seeking smarter, better technical solutions.</p>
+                        </div>
+                        <div class="text-center p-6 border-2 border-[#00BCD4]/30 rounded-lg bg-white transition duration-300 hover:scale-[1.05] hover:shadow-xl">
+                            <span data-lucide="handshake" class="w-8 h-8 text-[#00BCD4] mx-auto mb-3"></span>
+                            <p class="font-bold text-[#0A335E]">Commitment</p>
+                            <p class="text-sm text-gray-600 mt-1">Dedication to end-user success and reliable support.</p>
+                        </div>
+                        <div class="text-center p-6 border-2 border-[#00BCD4]/30 rounded-lg bg-white transition duration-300 hover:scale-[1.05] hover:shadow-xl">
+                            <span data-lucide="aperture" class="w-8 h-8 text-[#00BCD4] mx-auto mb-3"></span>
+                            <p class="font-bold text-[#0A335E]">Excellence</p>
+                            <p class="text-sm text-gray-600 mt-1">Striving for the highest quality in code and service delivery.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Intro Placeholder -->
+                <div class="mt-20 text-center bg-[#0A335E] p-12 rounded-xl shadow-xl">
+                    <h3 class="text-3xl font-bold text-white mb-4">Meet Our Leadership</h3>
+                    <p class="text-gray-300 max-w-2xl mx-auto">
+                        Our seasoned leadership team guides Binary Bytes Solution with decades of combined experience in technology, engineering, and talent management. (Team member details and photos will be displayed here.)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="page-section hidden py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <span class="text-[#00BCD4] uppercase tracking-wider font-semibold text-sm">Our Expertise</span>
+                    <h2 class="text-4xl font-extrabold text-[#0A335E] mt-2 mb-4">Comprehensive Technology & Talent Services</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        We are a solution-driven partner offering a full spectrum of services, from initial concept design to long-term maintenance and specialized staffing.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service Card 1: Software Development -->
+                    <div class="bg-[#F5F9FD] p-6 rounded-xl shadow-lg border-t-4 border-[#00BCD4] flex flex-col items-start hover:shadow-2xl transition duration-300">
+                        <span data-lucide="code" class="w-10 h-10 text-[#00BCD4] mb-4"></span>
+                        <h3 class="text-xl font-bold text-[#0A335E] mb-2">Software Development Services</h3>
+                        <p class="text-gray-600 flex-grow">
+                            Full-stack development, mobile apps, legacy system modernization, and custom platform builds tailored to your business logic.
+                        </p>
+                        <a href="#contact" class="mt-4 text-[#00BCD4] font-semibold hover:underline" onclick="navigate('contact')">Discuss Project &rarr;</a>
+                    </div>
+
+                    <!-- Service Card 2: Product Engineering -->
+                    <div class="bg-[#F5F9FD] p-6 rounded-xl shadow-lg border-t-4 border-[#00BCD4] flex flex-col items-start hover:shadow-2xl transition duration-300">
+                        <span data-lucide="package" class="w-10 h-10 text-[#00BCD4] mb-4"></span>
+                        <h3 class="text-xl font-bold text-[#0A335E] mb-2">Product Engineering</h3>
+                        <p class="text-gray-600 flex-grow">
+                            Building and maintaining scalable technology products from MVP to enterprise-grade solutions, focusing on UX and performance.
+                        </p>
+                        <a href="#contact" class="mt-4 text-[#00BCD4] font-semibold hover:underline" onclick="navigate('contact')">Start Your Product &rarr;</a>
+                    </div>
+
+                    <!-- Service Card 3: IT Consulting & Support -->
+                    <div class="bg-[#F5F9FD] p-6 rounded-xl shadow-lg border-t-4 border-[#00BCD4] flex flex-col items-start hover:shadow-2xl transition duration-300">
+                        <span data-lucide="pie-chart" class="w-10 h-10 text-[#00BCD4] mb-4"></span>
+                        <h3 class="text-xl font-bold text-[#0A335E] mb-2">IT Consulting & Technical Support</h3>
+                        <p class="text-gray-600 flex-grow">
+                            Strategic technology roadmapping, architectural review, cloud migration strategies, and reliable 24/7 technical support.
+                        </p>
+                        <a href="#contact" class="mt-4 text-[#00BCD4] font-semibold hover:underline" onclick="navigate('contact')">Consult with Experts &rarr;</a>
+                    </div>
+
+                    <!-- Service Card 4: Recruitment & Staffing -->
+                    <div class="bg-[#F5F9FD] p-6 rounded-xl shadow-lg border-t-4 border-[#00BCD4] flex flex-col items-start hover:shadow-2xl transition duration-300">
+                        <span data-lucide="briefcase" class="w-10 h-10 text-[#00BCD4] mb-4"></span>
+                        <h3 class="text-xl font-bold text-[#0A335E] mb-2">Recruitment & Staffing Solutions</h3>
+                        <p class="text-gray-600 flex-grow">
+                            Rapid placement of skilled IT professionals, including permanent, contract, and dedicated team models.
+                        </p>
+                        <a href="#careers" class="mt-4 text-[#00BCD4] font-semibold hover:underline" onclick="navigate('careers')">Hire Talent Now &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recruitment / Careers Section -->
+        <section id="careers" class="page-section hidden py-24 bg-[#0A335E] text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <span class="text-[#00BCD4] uppercase tracking-wider font-semibold text-sm">Join Our Team</span>
+                    <h2 class="text-4xl font-extrabold mt-2 mb-4">Opportunities at Binary Bytes Solution</h2>
+                    <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+                        We are actively recruiting for challenging roles with our global clientele. Find your next career move here.
+                    </p>
+                </div>
+
+                <!-- Why Candidates Choose Us -->
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6">Why Start Your Career with BBS?</h3>
+                        <ul class="space-y-4 text-gray-200">
+                            <li class="flex items-start">
+                                <span data-lucide="award" class="w-6 h-6 text-[#00BCD4] mr-3 flex-shrink-0 mt-1"></span>
+                                <span>**Growth & Learning:** Access to cutting-edge technology stacks and continuous professional development.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="heart" class="w-6 h-6 text-[#00BCD4] mr-3 flex-shrink-0 mt-1"></span>
+                                <span>**Culture:** A collaborative, inclusive, and innovation-driven work environment.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="trending-up" class="w-6 h-6 text-[#00BCD4] mr-3 flex-shrink-0 mt-1"></span>
+                                <span>**Impact:** Work on high-impact projects that define the digital future of leading companies.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span data-lucide="dollar-sign" class="w-6 h-6 text-[#00BCD4] mr-3 flex-shrink-0 mt-1"></span>
+                                <span>**Compensation:** Highly competitive salary and benefits packages.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-6">Our Hiring Process Flow</h3>
+                        <ol class="space-y-4 relative border-l border-[#00BCD4]/50 ml-3">
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 bg-[#00BCD4] text-white font-bold">1</span>
+                                <h4 class="font-semibold text-xl">Apply Online</h4>
+                                <p class="text-gray-300 text-sm">Submit your CV and details through our application form below.</p>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 bg-[#00BCD4] text-white font-bold">2</span>
+                                <h4 class="font-semibold text-xl">Technical Screening</h4>
+                                <p class="text-gray-300 text-sm">A brief technical interview or assessment to evaluate core skills.</p>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 bg-[#00BCD4] text-white font-bold">3</span>
+                                <h4 class="font-semibold text-xl">Final Interview</h4>
+                                <p class="text-gray-300 text-sm">Meeting with hiring managers or client leads for a cultural fit and in-depth discussion.</p>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 rounded-full -left-4 bg-[#00BCD4] text-white font-bold">4</span>
+                                <h4 class="font-semibold text-xl">Offer & Onboarding</h4>
+                                <p class="text-gray-300 text-sm">Receive your offer and begin your journey with Binary Bytes Solution!</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Job Categories & Apply Now -->
+                <div class="mt-16 text-center">
+                    <h3 class="text-3xl font-bold mb-8">Job Categories (Placeholder)</h3>
+                    <div class="flex flex-wrap justify-center gap-4 text-[#0A335E]">
+                        <span class="bg-white px-4 py-2 rounded-full font-medium shadow-md">Software Engineer (Frontend/Backend)</span>
+                        <span class="bg-white px-4 py-2 rounded-full font-medium shadow-md">Cloud Architect (AWS/Azure)</span>
+                        <span class="bg-white px-4 py-2 rounded-full font-medium shadow-md">Data Scientist / Analyst</span>
+                        <span class="bg-white px-4 py-2 rounded-full font-medium shadow-md">DevOps Engineer</span>
+                        <span class="bg-white px-4 py-2 rounded-full font-medium shadow-md">Technical Support Specialist</span>
+                    </div>
+
+                    <div class="mt-10">
+                         <a href="mailto:careers@binarybytes.com" class="bg-[#00BCD4] text-[#0A335E] py-4 px-8 rounded-lg font-bold text-lg hover:bg-opacity-90 transition duration-300 shadow-xl shadow-[#00BCD4]/50 inline-flex items-center">
+                            <span data-lucide="send" class="w-6 h-6 mr-3"></span>
+                            Apply Now / Send CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="page-section hidden py-24 bg-[#F5F9FD]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-extrabold text-center text-[#0A335E] mb-12">Let's Build Something Great Together</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 bg-white p-8 rounded-xl shadow-2xl">
+                    <!-- Contact Details -->
+                    <div class="lg:col-span-1 p-6 bg-[#0A335E] rounded-lg text-white">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center"><span data-lucide="message-square" class="w-6 h-6 mr-3 text-[#00BCD4]"></span> Contact Details</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="font-semibold text-[#00BCD4]">Email:</p>
+                                <p class="text-lg">info@binarybytes.com</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-[#00BCD4]">Phone:</p>
+                                <p class="text-lg">+1 (555) 123-4567</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-[#00BCD4]">Office Location (Placeholder):</p>
+                                <p class="text-lg">100 Tech Park, Suite 400, Silicon Valley, CA 94000</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-[#00BCD4]">Working Hours:</p>
+                                <p class="text-lg">Mon - Fri: 9:00 AM - 6:00 PM (PST)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-2 p-6">
+                        <h3 class="text-2xl font-bold text-[#0A335E] mb-6">Send Us a Message</h3>
+                        <form id="contact-form" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" id="name" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00BCD4] focus:ring-[#00BCD4] p-3 border">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00BCD4] focus:ring-[#00BCD4] p-3 border">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone (Optional)</label>
+                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00BCD4] focus:ring-[#00BCD4] p-3 border">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea id="message" name="message" rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#00BCD4] focus:ring-[#00BCD4] p-3 border"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-[#00BCD4] text-[#0A335E] py-3 px-4 rounded-lg font-bold hover:bg-opacity-90 transition duration-300 shadow-lg">
+                                Submit Request
+                            </button>
+                            <div id="form-message" class="mt-4 text-center text-sm font-medium hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0A335E] text-white mt-10">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <!-- Company Info -->
+                <div class="col-span-2 md:col-span-2">
+                    <a href="#home" class="flex items-center space-x-2 text-2xl font-bold text-white mb-4" onclick="navigate('home')">
+                        <span data-lucide="cpu" class="w-7 h-7 text-[#00BCD4]"></span>
+                        <span>Binary Bytes</span>
+                    </a>
+                    <p class="text-gray-400 text-sm max-w-sm">
+                        Providing end-to-end digital solutions and top-tier IT talent since 2019.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-[#00BCD4] mb-3">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-white transition duration-200" onclick="navigate('about')">About Us</a></li>
+                        <li><a href="#services" class="hover:text-white transition duration-200" onclick="navigate('services')">Services</a></li>
+                        <li><a href="#careers" class="hover:text-white transition duration-200" onclick="navigate('careers')">Careers</a></li>
+                        <li><a href="#contact" class="hover:text-white transition duration-200" onclick="navigate('contact')">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-lg font-semibold text-[#00BCD4] mb-3">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-200">Blog (Coming Soon)</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <!-- Connect -->
+                <div class="col-span-2 md:col-span-1">
+                    <h4 class="text-lg font-semibold text-[#00BCD4] mb-3">Connect</h4>
+                    <div class="flex space-x-3">
+                        <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-[#00BCD4] transition duration-300"><span data-lucide="linkedin" class="w-6 h-6"></span></a>
+                        <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-[#00BCD4] transition duration-300"><span data-lucide="twitter" class="w-6 h-6"></span></a>
+                        <a href="#" aria-label="GitHub" class="text-gray-400 hover:text-[#00BCD4] transition duration-300"><span data-lucide="github" class="w-6 h-6"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+                &copy; 2024 Binary Bytes Solution. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Navigation and Form Handling -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get all page sections and nav links
+        const sections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const form = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+
+        /**
+         * Simulates client-side navigation by showing/hiding sections.
+         * @param {string} pageId - The ID of the section to show (e.g., 'home', 'about').
+         */
+        function navigate(pageId) {
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show the target section
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                // Scroll to the top of the main content area (accounting for fixed header)
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Update active link styling
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
+
+        /**
+         * Toggles the mobile menu visibility.
+         */
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        /**
+         * Closes the mobile menu.
+         */
+        function closeMobileMenu() {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Set initial page state based on URL hash or default to 'home'
+        const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+        navigate(initialPage);
+
+
+        // --- Contact Form Handling (Placeholder) ---
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Simple validation check (can be expanded)
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                // Simulate successful submission (In a real app, you'd send data to a backend server here)
+                form.reset(); // Clear the form
+                formMessage.classList.remove('hidden', 'text-red-600');
+                formMessage.classList.add('text-green-600');
+                formMessage.textContent = 'Thank you for your message, ' + name + '! We will be in touch shortly.';
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000);
+
+            } else {
+                // Handle missing fields (though 'required' attribute should cover this)
+                formMessage.classList.remove('hidden', 'text-green-600');
+                formMessage.classList.add('text-red-600');
+                formMessage.textContent = 'Please fill out all required fields (Name, Email, Message).';
+            }
+        });
+
+    </script>
+</body>
+</html>
