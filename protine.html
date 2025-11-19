@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Veg Bowl Menu & Cost Analysis</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#10b981', // Emerald 500
+                        'secondary-lime': '#84cc16', // Lime 500
+                        'healthy-bg': '#f0fff4', // Mint Cream
+                        'text-dark': '#1f2937', // Gray 800
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for better scroll and typography */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc; /* Lighter background */
+        }
+    </style>
+</head>
+<body class="bg-healthy-bg min-h-screen text-text-dark antialiased">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-primary-green tracking-tight">
+                🥗 Protein Power Bowls
+            </h1>
+            <span class="text-sm font-semibold text-gray-500 hidden sm:block">12 Healthy, Veg-Only Options</span>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <p class="text-center text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            A complete cost and pricing analysis for the 12-bowl vegetarian menu, organized by price tier.
+        </p>
+
+        <!-- Menu Container (Will be populated by JS) -->
+        <div id="menu-container" class="space-y-12">
+            <!-- Bowls will be rendered here -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            &copy; 2025 Healthy Bowl Plan | Cost Data and Pricing Strategy
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Menu Data Array ---
+        // Storing all 12 bowls as structured JavaScript objects
+        const menuData = [
+            {
+                id: 1, name: "Sprouts Lemon-Spice Power Bowl", priceTier: 99,
+                ingredients: [
+                    { name: "Moong Sprouts", weight: "120g", cost: 18.00 },
+                    { name: "Tomato", weight: "30g", cost: 1.65 },
+                    { name: "Cucumber", weight: "30g", cost: 1.65 },
+                    { name: "Onion", weight: "40g", cost: 1.78 },
+                    { name: "Lemon + Spices", weight: "5g", cost: 1.00 },
+                ],
+                totalCost: 24.08, sellingPrice: 99, margin: 74.92,
+            },
+            {
+                id: 2, name: "Masala Chana Peri Peri Bowl", priceTier: 99,
+                ingredients: [
+                    { name: "Boiled Chana", weight: "100g", cost: 12.00 },
+                    { name: "Onion", weight: "40g", cost: 1.78 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Mint Yogurt", weight: "15g", cost: 3.48 },
+                ],
+                totalCost: 19.42, sellingPrice: 99, margin: 79.58,
+            },
+            {
+                id: 3, name: "Peas & Corn Tangy Bowl", priceTier: 99,
+                ingredients: [
+                    { name: "Green Peas", weight: "100g", cost: 8.00 },
+                    { name: "Carrot", weight: "40g", cost: 3.80 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Lemon-Spice", weight: "5g", cost: 1.00 },
+                ],
+                totalCost: 14.96, sellingPrice: 99, margin: 84.04,
+            },
+            {
+                id: 4, name: "Mint Yogurt Paneer Lite Bowl", priceTier: 149,
+                ingredients: [
+                    { name: "Low-Fat Paneer", weight: "60g", cost: 16.80 },
+                    { name: "Brown Rice", weight: "40g", cost: 1.60 },
+                    { name: "Carrot", weight: "40g", cost: 3.80 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Lettuce", weight: "30g", cost: 3.60 },
+                    { name: "Mint Yogurt", weight: "30g", cost: 1.98 },
+                ],
+                totalCost: 29.94, sellingPrice: 149, margin: 119.06,
+            },
+            {
+                id: 5, name: "Tandoori Soya Chunks Bowl", priceTier: 149,
+                ingredients: [
+                    { name: "Soya Chunks", weight: "70g", cost: 15.40 },
+                    { name: "Onion", weight: "40g", cost: 1.78 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Cabbage", weight: "50g", cost: 3.00 },
+                    { name: "Tandoori Yogurt", weight: "30g", cost: 1.98 },
+                ],
+                totalCost: 24.32, sellingPrice: 149, margin: 124.68,
+            },
+            {
+                id: 6, name: "Rajma Protein Salad Bowl", priceTier: 149,
+                ingredients: [
+                    { name: "Rajma", weight: "100g", cost: 13.00 },
+                    { name: "Lettuce", weight: "50g", cost: 6.00 },
+                    { name: "Tomato", weight: "40g", cost: 2.20 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Lemon-Spice", weight: "5g", cost: 1.00 },
+                ],
+                totalCost: 24.36, sellingPrice: 149, margin: 124.64,
+            },
+            {
+                id: 7, name: "Tofu Peri Peri Fitness Bowl", priceTier: 199,
+                ingredients: [
+                    { name: "Tofu", weight: "120g", cost: 117.00 },
+                    { name: "Brown Rice", weight: "50g", cost: 2.00 },
+                    { name: "Carrot", weight: "40g", cost: 3.80 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Corn", weight: "20g", cost: 1.20 },
+                    { name: "Peri Peri Mix", weight: "5g", cost: 1.50 },
+                ],
+                totalCost: 127.66, sellingPrice: 199, margin: 71.34,
+            },
+            {
+                id: 8, name: "Paneer Tandoori Protein Bowl", priceTier: 199,
+                ingredients: [
+                    { name: "Paneer", weight: "80g", cost: 22.40 },
+                    { name: "Millet Khichdi", weight: "50g", cost: 4.50 },
+                    { name: "Capsicum", weight: "40g", cost: 2.88 },
+                    { name: "Lettuce", weight: "30g", cost: 3.60 },
+                    { name: "Tandoori Yogurt", weight: "30g", cost: 1.98 },
+                ],
+                totalCost: 35.36, sellingPrice: 199, margin: 163.64,
+            },
+            {
+                id: 9, name: "Makhani Tofu Nourish Bowl", priceTier: 199,
+                ingredients: [
+                    { name: "Tofu", weight: "100g", cost: 97.50 },
+                    { name: "Quinoa", weight: "40g", cost: 20.00 },
+                    { name: "Carrot", weight: "40g", cost: 3.80 },
+                    { name: "Peas", weight: "30g", cost: 2.40 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Low-Cal Makhani", weight: "15g", cost: 3.00 },
+                ],
+                totalCost: 128.86, sellingPrice: 199, margin: 70.14,
+            },
+            {
+                id: 10, name: "Double Protein Paneer + Soya Bowl", priceTier: 249,
+                ingredients: [
+                    { name: "Paneer", weight: "80g", cost: 22.40 },
+                    { name: "Soya Chunks", weight: "50g", cost: 11.00 },
+                    { name: "Brown Rice", weight: "50g", cost: 2.00 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Carrot", weight: "40g", cost: 3.80 },
+                    { name: "Mint Yogurt", weight: "30g", cost: 1.98 },
+                ],
+                totalCost: 43.34, sellingPrice: 249, margin: 205.66,
+            },
+            {
+                id: 11, name: "Ultimate Tofu Power Bowl", priceTier: 249,
+                ingredients: [
+                    { name: "Tofu", weight: "150g", cost: 146.25 },
+                    { name: "Quinoa", weight: "50g", cost: 25.00 },
+                    { name: "Lettuce", weight: "30g", cost: 3.60 },
+                    { name: "Onion", weight: "30g", cost: 1.34 },
+                    { name: "Capsicum", weight: "30g", cost: 2.16 },
+                    { name: "Tandoori Yogurt", weight: "30g", cost: 1.98 },
+                ],
+                totalCost: 180.33, sellingPrice: 249, margin: 68.67,
+            },
+            {
+                id: 12, name: "High-Protein Chana + Tofu Makhani Bowl", priceTier: 249,
+                ingredients: [
+                    { name: "Chana", weight: "80g", cost: 9.60 },
+                    { name: "Tofu", weight: "80g", cost: 78.00 },
+                    { name: "Low-Cal Makhani", weight: "15g", cost: 3.00 },
+                    { name: "Millet Khichdi", weight: "40g", cost: 3.60 },
+                    { name: "Coriander/Jeera", weight: "5g", cost: 1.50 },
+                ],
+                totalCost: 95.70, sellingPrice: 249, margin: 153.30,
+            },
+        ];
+
+        // Function to group bowls by price tier
+        const groupDataByTier = (data) => {
+            return data.reduce((acc, bowl) => {
+                const tier = `Tier ${bowl.priceTier} ₹ Bowls`;
+                if (!acc[tier]) {
+                    acc[tier] = [];
+                }
+                acc[tier].push(bowl);
+                return acc;
+            }, {});
+        };
+
+        // Function to generate the HTML for a single ingredient cost visualization
+        const generateCostBar = (ingredient, totalCost) => {
+            // Calculate percentage of ingredient cost relative to total cost
+            const percentage = ((ingredient.cost / totalCost) * 100).toFixed(1);
+            
+            // Assign a color based on percentage/name for visual distinction
+            let colorClass = 'bg-primary-green/60';
+            if (ingredient.name.includes('Paneer') || ingredient.name.includes('Tofu') || ingredient.name.includes('Soya')) {
+                colorClass = 'bg-secondary-lime'; // Primary protein highlight
+            } else if (ingredient.name.includes('Rice') || ingredient.name.includes('Quinoa') || ingredient.name.includes('Khichdi')) {
+                colorClass = 'bg-yellow-500/80'; // Carb/Base highlight
+            } else if (ingredient.name.includes('Yogurt') || ingredient.name.includes('Makhani')) {
+                colorClass = 'bg-blue-400/80'; // Dressing/Sauce
+            }
+
+            return `
+                <div class="flex items-center space-x-2 text-xs">
+                    <span class="font-medium w-24 truncate text-gray-700">${ingredient.name}</span>
+                    <div class="relative flex-grow h-3 rounded-full bg-gray-200 overflow-hidden">
+                        <div class="h-full rounded-full ${colorClass}" style="width: ${percentage}%;"></div>
+                    </div>
+                    <span class="font-mono text-gray-600 w-10 text-right">₹${ingredient.cost.toFixed(2)}</span>
+                </div>
+            `;
+        };
+
+        // Function to generate the HTML for a single bowl card
+        const generateBowlCard = (bowl) => {
+            const ingredientListHtml = bowl.ingredients.map(ing => `
+                <li class="flex justify-between text-sm text-gray-600 py-0.5 border-b border-gray-100 last:border-b-0">
+                    <span class="font-medium">${ing.name}</span>
+                    <span class="text-right">${ing.weight} (₹${ing.cost.toFixed(2)})</span>
+                </li>
+            `).join('');
+
+            const costBreakdownHtml = bowl.ingredients.map(ing => generateCostBar(ing, bowl.totalCost)).join('');
+            
+            // Calculate food cost percentage
+            const fcp = ((bowl.totalCost / bowl.sellingPrice) * 100).toFixed(1);
+
+            return `
+                <div class="bg-white shadow-xl rounded-2xl overflow-hidden transform transition-all duration-300 hover:scale-[1.01] border border-primary-green/10">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-4 text-text-dark flex items-center">
+                            <span class="text-secondary-lime mr-2">#${bowl.id}</span>
+                            ${bowl.name}
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Column 1: Ingredients -->
+                            <div class="col-span-1 border-r md:pr-4">
+                                <h4 class="text-lg font-semibold text-primary-green mb-3 border-b pb-1">Ingredients & Weight</h4>
+                                <ul class="list-none space-y-1">
+                                    ${ingredientListHtml}
+                                </ul>
+                            </div>
+
+                            <!-- Column 2: Cost Analysis (The "Chart") -->
+                            <div class="col-span-1 border-r md:pr-4">
+                                <h4 class="text-lg font-semibold text-primary-green mb-3 border-b pb-1">Cost Breakdown (FCP: ${fcp}%)</h4>
+                                <div class="space-y-2 pt-1">
+                                    ${costBreakdownHtml}
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <p class="text-md font-bold text-gray-700 flex justify-between">
+                                        <span>Total Ingredient Cost:</span> 
+                                        <span class="text-red-600">₹${bowl.totalCost.toFixed(2)}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Column 3: Pricing & Margin -->
+                            <div class="col-span-1 flex flex-col justify-center items-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-center mb-4">
+                                    <p class="text-sm font-medium text-gray-500">Selling Price</p>
+                                    <p class="text-4xl font-extrabold text-green-700">₹${bowl.sellingPrice}</p>
+                                </div>
+                                <div class="w-full text-center p-3 rounded-xl bg-primary-green/10 border-l-4 border-primary-green">
+                                    <p class="text-sm font-medium text-gray-700">Gross Margin</p>
+                                    <p class="text-2xl font-bold text-primary-green">₹${bowl.margin.toFixed(2)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        // Main rendering function
+        const renderMenu = () => {
+            const groupedData = groupDataByTier(menuData);
+            const container = document.getElementById('menu-container');
+            let htmlContent = '';
+
+            for (const tier in groupedData) {
+                // Tier Header
+                let tierClass = 'bg-primary-green text-white';
+                if (tier.includes('149')) tierClass = 'bg-yellow-600 text-white';
+                if (tier.includes('199')) tierClass = 'bg-orange-600 text-white';
+                if (tier.includes('249')) tierClass = 'bg-red-600 text-white';
+                
+                htmlContent += `
+                    <div class="mt-12">
+                        <h2 class="text-3xl font-extrabold p-4 rounded-xl shadow-lg text-center tracking-tight ${tierClass} mb-6">
+                            ${tier}
+                        </h2>
+                        <div class="space-y-6">
+                            ${groupedData[tier].map(bowl => generateBowlCard(bowl)).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = htmlContent;
+        };
+
+        // Run the rendering function when the page loads
+        document.addEventListener('DOMContentLoaded', renderMenu);
+    </script>
+</body>
+</html>
